@@ -1,6 +1,7 @@
 package org.RecommendationSystem.application.MainPage;
 
 
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -81,13 +82,12 @@ public class MainWin extends StackPane {
             ImageView logoutView = new ImageView(logoutImage);
             VBox logoutBox = new VBox(logoutView);
             logoutBox.setAlignment(Pos.CENTER);
-            Button logoutButton = new Button("",logoutBox);
+            Button logoutButton = new Button("", logoutBox);
             logoutButton.setPrefSize(Config.WINDOW_WIDTH * 0.1, Config.WINDOW_HEIGHT * 0.1);
             logoutButton.setAlignment(Pos.CENTER);
             logoutButton.setStyle("-fx-background-color: transparent;");
             logoutButton.setOnAction(actionEvent -> mainWin.toBack());
-            VBox buttonContainer = new VBox(recommendButton, tableButton,blankText,logoutButton);
-
+            VBox buttonContainer = new VBox(recommendButton, tableButton, blankText, logoutButton);
 
 
             this.getChildren().addAll(shuBox, buttonContainer);
@@ -132,23 +132,20 @@ public class MainWin extends StackPane {
             Image searchLogo = new Image("images/search.png",
                     boxHeight * 0.035, boxHeight * 0.035, false, false);
             ImageView searchLogoView = new ImageView(searchLogo);
-            Button searchButton = new Button("",searchLogoView);
+            Button searchButton = new Button("", searchLogoView);
             searchButton.setStyle("-fx-background-color: transparent;");
             TextField searchField = new TextField();
             searchField.setStyle("-fx-background-color: transparent");
             searchField.setPrefWidth(200);
             searchField.setFont(Font.font(10));
-            searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    searchPane.toFront();
-                    System.out.println("焦点已获得");
-                } else {
-                    System.out.println("焦点已失去");
-                }
+
+            searchField.setOnAction(actionEvent -> {
+                searchPane.toFront();
+                System.out.println(searchField.getText());
             });
 
 
-            HBox searchBox = new HBox(new Text("  "),searchField,searchButton);
+            HBox searchBox = new HBox(new Text("  "), searchField, searchButton);
             searchBox.setAlignment(Pos.CENTER);
             searchBox.setStyle("-fx-border-width: 1px;" +
                     "-fx-border-radius: 20px;" +
@@ -162,8 +159,8 @@ public class MainWin extends StackPane {
             GridPane.setHalignment(userButton, HPos.CENTER);
             String blankString = "                     ";
             this.add(userButton, 2, 0);
-            this.add(new Text(blankString+blankString+blankString),1,0);
-            this.add(searchBox,0,0);
+            this.add(new Text(blankString + blankString + blankString), 1, 0);
+            this.add(searchBox, 0, 0);
             this.setAlignment(Pos.CENTER_RIGHT);
             this.setStyle("-fx-background-color:#fff1ee;");
             this.setEffect(dropShadow2);
